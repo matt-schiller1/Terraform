@@ -55,7 +55,7 @@ resource "aws_route_table_association" "matts_awesome_association" {
 resource "aws_security_group" "matts_secure_SG" {
   name = "matts_secure_SG"
   description = "To allow inbound and outbound traffic"
-  vpc_id = aws_vpc.matts_awesome_cloud
+  vpc_id = aws_vpc.matts_awesome_cloud.id
 
   // Create Inbound and Outbound Traffic
 
@@ -90,6 +90,8 @@ resource "aws_instance" "matts_jenkins_instance" {
     vpc_security_group_ids = [aws_security_group.matts_secure_SG.id]
     subnet_id = aws_subnet.matts_awesome_subnet.id
     associate_public_ip_address = true
+    
+    user_data = file("./installJenkins.sh")
 
     tags = {
         Name = "matts_jenkins_instance"

@@ -1,3 +1,7 @@
 Jenkins/.terraform/
 Jenkins/.terraform.lock.hcl
 .terraform
+Jenkins/.terraform.tfstate.lock.info
+.terraform.tfstate.lock.info
+Jenkins/terraform.tfstate
+Jenkins/terraform.tfstate.backup
