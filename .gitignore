@@ -1,0 +1,3 @@
+Jenkins/.terraform/
+Jenkins/.terraform.lock.hcl
+.terraform
