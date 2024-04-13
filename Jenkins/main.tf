@@ -98,3 +98,62 @@ resource "aws_instance" "matts_jenkins_instance" {
     }
 }
 
+resource "aws_instance" "matts_anisible_controller" {
+    ami = var.ami
+    instance_type = var.instance_type
+    key_name = var.key_name
+    vpc_security_group_ids = [aws_security_group.matts_secure_SG.id]
+    subnet_id = aws_subnet.matts_awesome_subnet.id
+    associate_public_ip_address = true
+    
+    user_data = file("./installAnsibleCN.sh")
+
+    tags = {
+        Name = "matts_ansible_controller"
+    }
+}
+
+resource "aws_instance" "ansible_managed_node1" {
+    ami = var.ami
+    instance_type = var.instance_type
+    key_name = var.key_name
+    vpc_security_group_ids = [aws_security_group.matts_secure_SG.id]
+    subnet_id = aws_subnet.matts_awesome_subnet.id
+    associate_public_ip_address = true
+    
+    user_data = file("./installAnisibleNode.sh")
+
+    tags = {
+        Name = "ansible_managed_node1"
+    }
+}
+
+resource "aws_instance" "matts_docker_instance" {
+    ami = var.ami
+    instance_type = var.instance_type
+    key_name = var.key_name
+    vpc_security_group_ids = [aws_security_group.matts_secure_SG.id]
+    subnet_id = aws_subnet.matts_awesome_subnet.id
+    associate_public_ip_address = true
+    
+    user_data = file("./docker.sh")
+
+    tags = {
+        Name = "matts_docker_instance"
+    }
+}
+
+resource "aws_instance" "matts_nexus_server" {
+    ami = var.ami
+    instance_type = "t2.medium"
+    key_name = var.key_name
+    vpc_security_group_ids = [aws_security_group.matts_secure_SG.id]
+    subnet_id = aws_subnet.matts_awesome_subnet.id
+    associate_public_ip_address = true
+    
+    user_data = file("./installNexus.sh")
+
+    tags = {
+        Name = "matts_nexus_server"
+    }
+}
